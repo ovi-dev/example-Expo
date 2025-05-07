@@ -1,36 +1,50 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import i18n from '../../config/i18n';
 
 const Home = () => {
   const router = useRouter();
+  const [currentLocale, setCurrentLocale] = useState(i18n.locale);
+
+  const toggleLanguage = () => {
+    const newLocale = currentLocale === 'es' ? 'en' : 'es';
+    i18n.locale = newLocale;
+    setCurrentLocale(newLocale);
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>Home</Text>
-        <Text style={styles.subtitle}>Bienvenido a la aplicación</Text>
+        <TouchableOpacity 
+          style={styles.languageButton} 
+          onPress={toggleLanguage}>
+          <Text style={styles.buttonText}>
+            {currentLocale === 'es' ? '🇺🇸 EN' : '🇪🇸 ES'}
+          </Text>
+        </TouchableOpacity>
+
+        <Text style={styles.title}>{i18n.t('home.title')}</Text>
+        <Text style={styles.subtitle}>{i18n.t('home.subtitle')}</Text>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => router.push('/contador')}>
-            <Text style={styles.buttonText}>Contador</Text>
+            <Text style={styles.buttonText}>{i18n.t('home.counter')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => router.push('/profile')}>
-            <Text style={styles.buttonText}>Perfil</Text>
+            <Text style={styles.buttonText}>{i18n.t('home.profile')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             style={styles.button} 
             onPress={() => router.push('/settings')}>
-            <Text style={styles.buttonText}>Configuración</Text>
+            <Text style={styles.buttonText}>{i18n.t('home.settings')}</Text>
           </TouchableOpacity>
-
-         
         </View>
       </View>
     </SafeAreaView>
@@ -70,6 +84,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  languageButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: '#007AFF',
+    padding: 10,
+    borderRadius: 8,
+    zIndex: 1,
   },
 });
 
