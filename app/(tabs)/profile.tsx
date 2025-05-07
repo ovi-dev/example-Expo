@@ -18,7 +18,7 @@ const Profile = () => {
         <View style={styles.infoSection}>
           <View style={styles.infoItem}>
             <Text style={styles.infoLabel}>Ubicación</Text>
-            <Text style={styles.infoValue}>Ciudad de México</Text>
+            <Text style={styles.infoValue}>Ciudad de Madrid</Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.infoLabel}>Miembro desde</Text>
